@@ -1,0 +1,16 @@
+﻿
+RUNNING TESTS FROM THE COMMAND LINE
+
+Steps:
+1. Right-click on the test project in your solution.
+
+2. Click "Open Folder in File Explorer" in the context menu.
+
+3. Hold down the Shift key and right-click on the Windows Explorer window.
+
+4. Click "Open PowerShell window here".
+
+5. Enter "dotnet test" to run all tests defined in the project.
+
+Note: You may need to enter the project file for the test project.
+For example, "dotnet test NUnit3Tests.csproj".

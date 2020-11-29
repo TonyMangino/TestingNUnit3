@@ -1,0 +1,5 @@
+﻿NUnit provides a new Constraint Model to improve the test method readability. In the constraint Model, 
+you use a single method That() and specify constraints to check your expected response.
+
+The That() method applies a constraint to an actual value. If the constraint is satisfied the test case
+is successful. Otherwise it fails.

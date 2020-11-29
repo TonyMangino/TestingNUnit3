@@ -1,0 +1,6 @@
+﻿Below are helper classes to provide a constraint to assert method:
+> Is()
+> Has()
+> Contains()
+> Does()
+> Throws()

@@ -1,0 +1,21 @@
+Creating a NUnit test project
+To create an NUnit test project, you need to add a class library project to the solution.
+•	Choose Add | New Project
+
+•	Add a. NET Core class library project
+
+•	Delete the default Class1 file
+
+•	Add references to the projects that will be tested
+
+•	Add NuGet packages
+
+	o	Open Manage NuGet Packages by right-clicking on the project, or clicking Tools | Manage NuGet Packages from the menu bar
+
+	o	Search for and install the main NUnit package, which will give access to the NUnit attributes and asserts that are needed to write tests
+ 
+	o	If you want to run tests in Visual Studio, you also need to install the NUnit3TestAdapter package
+ 
+	o	The final package that you need to install is the Microsoft. NET. Test. SDK package
+ 
+	o	At this point, you can build the solution

@@ -1,0 +1,26 @@
+﻿
+RUNNING CATEGORIES FROM THE COMMAND LINE
+
+Notes:
+1. To only run Tests in a particular Category, apply the [Category()]
+attribute to the desired Tests. A Test can have multiple Category attributes
+applied to in,  which will associate the Test with each individual Category.
+
+2. It may be necessary to rebuild the solution after applying the
+Category attribute to an Test in order for it to appear in Test Explorer.
+
+3. A Category attribute can be applied to the Test class, and so, then
+applied to all Tests defined in the Test class.
+
+Steps:
+1. Right-click on the test project in your solution.
+
+2. Click "Open Folder in File Explorer" in the context menu.
+
+3. Hold down the Shift key and right-click on the Windows Explorer window.
+
+4. Click "Open PowerShell window here".
+
+5. To run all Tests under a Category, use the <--filter> attribute.
+For example,  <dotnet test NUnit3Tests.csproj --filter "TestCategory=Null test">
+will run all Tests under the "Null test" category.
