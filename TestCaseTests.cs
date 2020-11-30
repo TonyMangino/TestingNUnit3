@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using NUnit.Framework;
 
@@ -149,6 +150,30 @@ namespace NUnit3Tests
             }
         }
 
+        private class MonthlyRepaymentCsvData
+        {
+            public static IEnumerable GetTestCases(string csvFileName)
+            {
+                var csvLines = File.ReadAllLines(csvFileName);
+
+                var testCases = new List<TestCaseData>();
+
+                foreach (var line in csvLines)
+                {
+                    string[] values = line.Replace(" ", "").Split(',');
+
+                    decimal principal = decimal.Parse(values[0]);
+                    decimal interestRate = decimal.Parse(values[1]);
+                    int termInYears = int.Parse(values[2]);
+                    decimal expectedRepayment = decimal.Parse(values[3]);
+
+                    testCases.Add(new TestCaseData(principal, interestRate, termInYears, expectedRepayment));
+                }
+
+                return testCases;
+            }
+        }
+
         [Category("Method level data tests")]
         public class LoanRepaymentCalculatorShould
         {
@@ -209,10 +234,12 @@ namespace NUnit3Tests
             {
                 var sut = new LoanRepaymentCalculator();
 
-                var monthlyPayment = sut.CalculateMonthlyRepayment(
-                                         new LoanAmount("USD", principal),
-                                         interestRate,
-                                         new LoanTerm(termInYears));
+                var monthlyPayment = 
+                    sut.CalculateMonthlyRepayment(
+                        new LoanAmount("USD", principal),
+                        interestRate,
+                        new LoanTerm(termInYears)
+                    );
 
                 Assert.That(monthlyPayment, Is.EqualTo(expectedMonthlyPayment));
             }
@@ -234,6 +261,28 @@ namespace NUnit3Tests
                         interestRate,
                         new LoanTerm(termInYears)
                     );
+            }
+
+            [Test]
+            [TestCaseSource(typeof(MonthlyRepaymentCsvData), "GetTestCases", new object[] { @".\DataFiles\Data.csv" })]
+            [Category("TestCaseSource data tests")]
+            public void CalculateCorrectMonthlyRepayment_Csv(
+                decimal principal,
+                decimal interestRate,
+                int termInYears,
+                decimal expectedMonthlyPayment
+            )
+            {
+                var sut = new LoanRepaymentCalculator();
+
+                var monthlyPayment = 
+                    sut.CalculateMonthlyRepayment(
+                        new LoanAmount("USD", principal),
+                        interestRate,
+                        new LoanTerm(termInYears)
+                    );
+
+                Assert.That(monthlyPayment, Is.EqualTo(expectedMonthlyPayment));
             }
         }
     }
