@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using System.Collections.Generic;
 
-namespace NUnit3
+namespace NUnit3Tests
 {
     [Category("Comparison tests")]
     public class ComparisonTests

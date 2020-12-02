@@ -1,0 +1,25 @@
+﻿AuthorAttribute - adds information about the author of the tests. It can be applied to test
+fixtures and to tests.
+
+CombinatorialAttribute - used on a test to specify that NUnit should generate test cases for 
+all possible combinations of the individual data items provided for the parameters of a test.
+
+PairwiseAttribute - used on a test to specify that NUnit should generate test cases in such
+a way that all possible pairs of values are used.
+
+RandomAttribute - used to specify a set of random values to be provided for an individual 
+numeric parameter of a parameterized test method.
+
+RangeAttribute - used to specify a range of values to be provided for an individual parameter 
+of a parameterized test method. NUnit creates test cases from all possible combinations of the 
+provided on parameters - the combinatorial approach.
+
+RepeatAttribute - used on a test method to specify that it should be executed multiple times.
+If any repetition fails, the remaining ones are not run and a failure is reported.
+
+RetryAttribute - used on a test method to specify that it should be rerun if it fails, up to 
+a maximum number of times.
+
+TimeoutAttribute - used to specify a timeout value in milliseconds for a test case. If the test 
+case runs longer than the time specified it is immediately cancelled and reported as a failure, 
+with a message indicating that the timeout was exceeded.

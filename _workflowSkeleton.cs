@@ -37,6 +37,7 @@ namespace NUnit3Tests
     }
 
     //A class that contains NUnit unit tests. (Required)
+    [Author("your name here", "your.name@here.com")]
     public class Skeleton
     {
         [OneTimeSetUp]
@@ -48,13 +49,16 @@ namespace NUnit3Tests
         [SetUp]
         public void TestInitialization()
         {
-            // Runs before each test. (Optional)
+            // Runs before each test in the class. (Optional)
         }
 
         [Test]
         [Ignore("Ignored test method for demostration purposes only")]
         [Category("Skeleton ignored test")]
-        [Author("Tony Mangino")]
+        [Author("your name here")]
+        [Repeat(10)]
+        [Retry(3)]
+        [Timeout(3000)]
         public void IsAnIgnoredTest()
         {
             Assert.That("foo", Is.Not.EqualTo("bar"));
@@ -70,7 +74,7 @@ namespace NUnit3Tests
         [TearDown]
         public void TestCleanup()
         {
-            // Runs after each test. (Optional)
+            // Runs after each test in the class. (Optional)
         }
 
         [OneTimeTearDown]

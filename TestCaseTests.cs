@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using NUnit.Framework;
@@ -214,7 +215,7 @@ namespace NUnit3Tests
             {
                 var sut = new LoanRepaymentCalculator();
 
-                return 
+                return
                     sut.CalculateMonthlyRepayment(
                         new LoanAmount("USD", principal),
                         interestRate,
@@ -234,7 +235,7 @@ namespace NUnit3Tests
             {
                 var sut = new LoanRepaymentCalculator();
 
-                var monthlyPayment = 
+                var monthlyPayment =
                     sut.CalculateMonthlyRepayment(
                         new LoanAmount("USD", principal),
                         interestRate,
@@ -275,7 +276,7 @@ namespace NUnit3Tests
             {
                 var sut = new LoanRepaymentCalculator();
 
-                var monthlyPayment = 
+                var monthlyPayment =
                     sut.CalculateMonthlyRepayment(
                         new LoanAmount("USD", principal),
                         interestRate,
@@ -286,6 +287,7 @@ namespace NUnit3Tests
             }
 
             [Test]
+            [Combinatorial]
             [Category("Values data tests")]
             public void CalculateCorrectMonthlyRepayment_Combinatorial(
                 [Values(100_000, 200_000, 500_000)] decimal principal,
@@ -327,8 +329,34 @@ namespace NUnit3Tests
             //The [Range] attribute above works in the following format: starting value, ending value, step.
             var sut = new LoanRepaymentCalculator();
 
+            //The point of this test is to see if any combination of properties 
+            //causes the CalculateMonthlyRepayment() to throw an error.
             sut.CalculateMonthlyRepayment(
                 new LoanAmount("USD", principal), interestRate, new LoanTerm(termInYears));
+        }
+
+        [Test, Pairwise]
+        [Category("Values data tests")]
+        public void ValidateLandingSiteOfRover_When_GoingToMars(
+            [Values("a", "b", "c")] string a,
+            [Values("+", "-")] string b,
+            [Values("x", "y")] string c
+        )
+        {
+            Debug.WriteLine("{0} {1} {2}", a, b, c);
+        }
+
+
+        [Test]
+        [Category("Values data tests")]
+        public void GenerateRandomLandingSiteOnMoon(
+            [Values(1, 2, 3)] int x,
+            [Random(-1.0, 1.0, 5)] double d
+        )
+        {
+            //The following test will be executed fifteen times, three times for each value of x, 
+            //each combined with 5 random doubles from - 1.0 to + 1.0.
+            Debug.WriteLine("{0} {1}", x, d);
         }
     }
 }

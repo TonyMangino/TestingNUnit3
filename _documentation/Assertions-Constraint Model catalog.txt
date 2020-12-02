@@ -1,0 +1,3 @@
+﻿The constraint-based Assert model uses a single method of the Assert class for all assertions. The logic 
+necessary to carry out each assertion is embedded in the constraint object passed as the second parameter 
+to that method. The second argument in this assertion uses one of NUnit's syntax helpers to create an EqualConstraint. 
