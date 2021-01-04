@@ -13,6 +13,7 @@ namespace NUnit3
         private readonly string[] nullArray;
 
         [Test]
+        [Category("Collection constraint")]
         [Category("Array test")]
         [Category("Null test")]
         public void IsNullTest()
@@ -22,6 +23,7 @@ namespace NUnit3
         }
 
         [Test]
+        [Category("Collection constraint")]
         [Category("Array test")]
         [Category("Contains test")]
         public void ArrayContainsTest()
@@ -31,6 +33,7 @@ namespace NUnit3
         }
 
         [Test]
+        [Category("Collection constraint")]
         [Category("Array test")]
         [Category("Equality test")]
         public void AllGreaterThanTest()
@@ -40,6 +43,7 @@ namespace NUnit3
         }
 
         [Test]
+        [Category("Collection constraint")]
         [Category("Array test")]
         [Category("Instance of test")]
         public void InstanceOfTest()
@@ -48,6 +52,7 @@ namespace NUnit3
         }
 
         [Test]
+        [Category("Collection constraint")]
         [Category("Array test")]
         [Category("Empty test")]
         public void EmptyTest()
@@ -57,6 +62,7 @@ namespace NUnit3
         }
 
         [Test]
+        [Category("Collection constraint")]
         [Category("Array test")]
         [Category("Occurrance test")]
         public void SpecificItemExactlyNTimesTest()
@@ -70,6 +76,7 @@ namespace NUnit3
         }
 
         [Test]
+        [Category("Collection constraint")]
         [Category("Array test")]
         [Category("Unique test")]
         public void UniqueItemsTest()
@@ -88,6 +95,7 @@ namespace NUnit3
         }
 
         [Test]
+        [Category("Collection constraint")]
         [Category("Array test")]
         [Category("Matches test")]
         public void ArrayMatchesTest()
@@ -98,10 +106,38 @@ namespace NUnit3
         }
 
         [Test]
+        [Category("Collection constraint")]
         [Category("Array subset test")]
         public void SubsetTest()
         {
             Assert.That(arraySubset, Is.SubsetOf(array));
+        }
+
+        [Test]
+        [Category("Collection constraint")]
+        [Category("AllItemsConstraint test")]
+        public void AllItemsTest()
+        {
+            //AllItemsConstraint applies a constraint to each item in an IEnumerable, succeeding only if all
+            //of them succeed. An exception is thrown if the actual value passed does not implement IEnumerable.
+            int[] intArray = new int[] { 1, 2, 3 };
+            string[] stringArray = new string[] { "a", "b", "c" };
+            Assert.That(intArray, Is.All.Not.Null);
+            Assert.That(stringArray, Is.All.InstanceOf<string>());
+            Assert.That(intArray, Is.All.GreaterThan(0));
+            Assert.That(intArray, Has.All.GreaterThan(0));
+        }
+
+        [Test]
+        [Category("Collection constraint")]
+        [Category("AnyOf test")]
+        public void AnyOfTest()
+        {
+            //AnyOfConstraint is used to determine whether a value is equal to any of the expected values.
+            int[] intArray = new int[] { 0, -1, 42, 100 };
+
+            Assert.That(42, Is.AnyOf(intArray));
+            Assert.That(myOwnObject, Is.AnyOf(myArray).Using(myComparer));
         }
     }
 }
