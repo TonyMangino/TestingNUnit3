@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace NUnit3
@@ -282,6 +283,80 @@ namespace NUnit3
             Assert.That(collection, Is.Ordered.Ascending.By("FirstName").Then.Descending.By("LastName"));
             Assert.That(collection, Is.Ordered.Ascending.By("FirstName").By("LastName").Descending);
             //Assert.That(collection, Is.Ordered.Ascending.By("FirstName").Descending.By("LastName")); // Illegal!
+        }
+
+        [Test]
+        [Category("Collection constraint")]
+        [Category("CollectionSubset test")]
+        public void CollectionSubsetTest()
+        {
+            //CollectionSubsetConstraint tests that one IEnumerable is a subset of another. 
+            //If the actual value passed does not implement IEnumerable, an exception is thrown.
+
+            int[] intArray = new int[] { 1, 3 };
+
+            Assert.That(intArray, Is.SubsetOf(new int[] { 1, 2, 3 }));
+        }
+
+        [Test]
+        [Category("Collection constraint")]
+        [Category("CollectionSuperset test")]
+        public void CollectionSupersetTest()
+        {
+            //CollectionSupersetConstraint tests that one IEnumerable is a superset of another. 
+            //If the actual value passed does not implement IEnumerable, an exception is thrown.
+
+            int[] intArray = new int[] { 1, 2, 3 };
+
+            Assert.That(intArray, Is.SupersetOf(new int[] { 1, 3 }));
+        }
+
+        [Test]
+        [Category("Collection constraint")]
+        [Category("CollectionOrdered test")]
+        public void DictionaryContainsKeyTest()
+        {
+            //DictionaryContainsKeyConstraint is used to test whether a dictionary contains an expected object as a key.
+
+            //Modifiers
+            //  ...Using(IComparer comparer)
+            //  ...Using(IEqualityComparer comparer)
+            //  ...Using<T>(IComparer < T > comparer)
+            //  ...Using<T>(Comparison < T > comparer)
+            //  ...Using<T>(Func<T, T, bool> comparer)
+            //  ...Using<T>(IEqualityComparer < T > comparer)
+            //  ...Using<TCollectionType, TMemberType>(Func<TCollectionType, TMemberType, bool> comparison)
+
+            var idict = new Dictionary<int, int> { { 1, 4 }, { 2, 5 } };
+
+            Assert.That(idict, Contains.Key(1));
+            Assert.That(idict, Does.ContainKey(2));
+            Assert.That(idict, Does.Not.ContainKey(3));
+            //Assert.That(mydict, Contains.Key(myOwnObject).Using(myComparer));
+        }
+
+        [Test]
+        [Category("Collection constraint")]
+        [Category("CollectionOrdered test")]
+        public void DictionaryContainsValueTest()
+        {
+            //DictionaryContainsValueConstraint is used to test whether a dictionary contains an expected object as a value.
+
+            //Modifiers
+            //  ...Using(IComparer comparer)
+            //  ...Using(IEqualityComparer comparer)
+            //  ...Using<T>(IComparer < T > comparer)
+            //  ...Using<T>(Comparison < T > comparer)
+            //  ...Using<T>(Func<T, T, bool> comparer)
+            //  ...Using<T>(IEqualityComparer < T > comparer)
+            //  ...Using<TCollectionType, TMemberType>(Func<TCollectionType, TMemberType, bool> comparison)
+
+            var idict = new Dictionary<int, int> { { 1, 4 }, { 2, 5 } };
+
+            Assert.That(idict, Contains.Value(4));
+            Assert.That(idict, Does.ContainValue(5));
+            Assert.That(idict, Does.Not.ContainValue(3));
+            //Assert.That(mydict, Contains.Value(myOwnObject).Using(myComparer));
         }
     }
 }
