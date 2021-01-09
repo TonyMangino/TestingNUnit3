@@ -21,7 +21,6 @@ namespace NUnit3
         private readonly string[] nullArray;
 
         [Test]
-        [Category("Collection constraint")]
         [Category("Array test")]
         [Category("Null test")]
         public void IsNullTest()
@@ -31,7 +30,6 @@ namespace NUnit3
         }
 
         [Test]
-        [Category("Collection constraint")]
         [Category("Array test")]
         [Category("Contains test")]
         public void ArrayContainsTest()
@@ -41,7 +39,6 @@ namespace NUnit3
         }
 
         [Test]
-        [Category("Collection constraint")]
         [Category("Array test")]
         [Category("Equality test")]
         public void AllGreaterThanTest()
@@ -51,7 +48,6 @@ namespace NUnit3
         }
 
         [Test]
-        [Category("Collection constraint")]
         [Category("Array test")]
         [Category("Instance of test")]
         public void InstanceOfTest()
@@ -60,7 +56,6 @@ namespace NUnit3
         }
 
         [Test]
-        [Category("Collection constraint")]
         [Category("Array test")]
         [Category("Empty test")]
         public void EmptyTest()
@@ -70,7 +65,6 @@ namespace NUnit3
         }
 
         [Test]
-        [Category("Collection constraint")]
         [Category("Array test")]
         [Category("Occurrance test")]
         public void SpecificItemExactlyNTimesTest()
@@ -84,7 +78,6 @@ namespace NUnit3
         }
 
         [Test]
-        [Category("Collection constraint")]
         [Category("Array test")]
         [Category("Unique test")]
         public void UniqueItemsTest()
@@ -103,7 +96,6 @@ namespace NUnit3
         }
 
         [Test]
-        [Category("Collection constraint")]
         [Category("Array test")]
         [Category("Matches test")]
         public void ArrayMatchesTest()
@@ -114,16 +106,12 @@ namespace NUnit3
         }
 
         [Test]
-        [Category("Collection constraint")]
-        [Category("Array subset test")]
         public void SubsetTest()
         {
             Assert.That(arraySubset, Is.SubsetOf(array));
         }
 
         [Test]
-        [Category("Collection constraint")]
-        [Category("AllItemsConstraint test")]
         public void AllItemsTest()
         {
             //AllItemsConstraint applies a constraint to each item in an IEnumerable, succeeding only if all
@@ -138,8 +126,6 @@ namespace NUnit3
         }
 
         [Test]
-        [Category("Collection constraint")]
-        [Category("AnyOf test")]
         public void AnyOfTest()
         {
             //AnyOfConstraint is used to determine whether a value is equal to any of the expected values.
@@ -158,8 +144,6 @@ namespace NUnit3
         }
 
         [Test]
-        [Category("Collection constraint")]
-        [Category("CollectionContains test")]
         public void CollectionContainsTest()
         {
             //CollectionContainsConstraint tests that an IEnumerable contains an object. If  
@@ -181,8 +165,6 @@ namespace NUnit3
         }
 
         [Test]
-        [Category("Collection constraint")]
-        [Category("CollectionEquivalent test")]
         public void CollectionEquivalentTest()
         {
             //CollectionEquivalentConstraint tests that two IEnumerables are equivalent - that they contain the same 
@@ -198,8 +180,6 @@ namespace NUnit3
         }
 
         [Test]
-        [Category("Collection constraint")]
-        [Category("CollectionOrdered test")]
         public void CollectionOrderedTest_SimpleOrdering()
         {
             //CollectionOrderedConstraint tests that an IEnumerable is ordered. If the 
@@ -226,8 +206,6 @@ namespace NUnit3
         }
 
         [Test]
-        [Category("Collection constraint")]
-        [Category("CollectionOrdered test")]
         public void CollectionOrderedTest_PropertyBasedOrdering()
         {
             //Property-based ordering uses one or more properties that are common 
@@ -251,8 +229,6 @@ namespace NUnit3
         }
 
         [Test]
-        [Category("Collection constraint")]
-        [Category("CollectionOrdered test")]
         public void CollectionOrderedTest_MultiplePropertyBasedOrdering()
         {
             //An ordering expression may use multiple By modifiers, each  
@@ -286,8 +262,6 @@ namespace NUnit3
         }
 
         [Test]
-        [Category("Collection constraint")]
-        [Category("CollectionSubset test")]
         public void CollectionSubsetTest()
         {
             //CollectionSubsetConstraint tests that one IEnumerable is a subset of another. 
@@ -299,8 +273,6 @@ namespace NUnit3
         }
 
         [Test]
-        [Category("Collection constraint")]
-        [Category("CollectionSuperset test")]
         public void CollectionSupersetTest()
         {
             //CollectionSupersetConstraint tests that one IEnumerable is a superset of another. 
@@ -312,8 +284,6 @@ namespace NUnit3
         }
 
         [Test]
-        [Category("Collection constraint")]
-        [Category("CollectionOrdered test")]
         public void DictionaryContainsKeyTest()
         {
             //DictionaryContainsKeyConstraint is used to test whether a dictionary contains an expected object as a key.
@@ -336,8 +306,6 @@ namespace NUnit3
         }
 
         [Test]
-        [Category("Collection constraint")]
-        [Category("CollectionOrdered test")]
         public void DictionaryContainsValueTest()
         {
             //DictionaryContainsValueConstraint is used to test whether a dictionary contains an expected object as a value.
@@ -357,6 +325,69 @@ namespace NUnit3
             Assert.That(idict, Does.ContainValue(5));
             Assert.That(idict, Does.Not.ContainValue(3));
             //Assert.That(mydict, Contains.Value(myOwnObject).Using(myComparer));
+        }
+
+        [Test]
+        public void EmptyCollectionTest()
+        {
+            //The EmptyCollectionConstraint tests if a Collection or other IEnumerable is empty. 
+            //An ArgumentException is thrown if the actual value is not an IEnumerable or is null.
+
+            //Is.Empty actually creates an EmptyConstraint. Subsequently applying it to an 
+            //IEnumerable or ICollection causes an EmptyCollectionConstraint to be created.
+
+            Assert.That(new int[] { }, Is.Empty);
+            Assert.That(new int[] { 1, 2, 3 }, Is.Not.Empty);
+        }
+
+        [Test]
+        public void ExactCountTest()
+        {
+            //ExactCountConstraint has two functions:
+            //1. In its simplest use, it simply verifies the number of items in an array, collection or
+            //IEnumerable, providing a way to count items that is independent of any Length or Count property.
+            //
+            //2. When used with another constraint, it applies that constraint to each item in the
+            //array, collection or IEnumerable, succeeding if the specified number of items succeed.
+
+            //An exception is thrown if the actual value passed does not implement IEnumerable.
+            //The keyword Items is optional when used before a constraint but required when merely 
+            //counting items with no constraint specified.
+
+            int[] array = new int[] { 1, 2, 3 };
+
+            Assert.That(array, Has.Exactly(3).Items);
+            Assert.That(array, Has.Exactly(2).Items.GreaterThan(1));
+            Assert.That(array, Has.Exactly(3).LessThan(100));
+            Assert.That(array, Has.Exactly(2).Items.EqualTo(1).Or.EqualTo(3));
+            Assert.That(array, Has.Exactly(1).EqualTo(1).And.Exactly(1).EqualTo(3));
+        }
+
+        [Test]
+        public void NoItemTest()
+        {
+            //NoItemConstraint applies a constraint to each item in a collection, succeeding only if
+            //all of them fail. An exception is thrown if the actual value passed does not implement IEnumerable.
+
+            int[] intArray = new int[] { 1, 2, 3 };
+            string[] stringArray = new string[] { "a", "b", "c" };
+
+            Assert.That(intArray, Has.None.Null);
+            Assert.That(stringArray, Has.None.EqualTo("d"));
+            Assert.That(intArray, Has.None.LessThan(0));
+        }
+
+        [Test]
+        public void SomeItemTest()
+        {
+            //SomeItemsConstraint applies a constraint to each item in an IEnumerable, succeeding if at least
+            //one of them succeeds. An exception is thrown if the actual value passed does not implement IEnumerable.
+
+            int[] intArray = new int[] { 1, 2, 3 };
+            string[] stringArray = new string[] { "a", "b", "c" };
+
+            Assert.That(intArray, Has.Some.GreaterThan(2));
+            Assert.That(stringArray, Has.Some.Length.EqualTo(1));
         }
     }
 }
