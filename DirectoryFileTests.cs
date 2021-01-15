@@ -3,6 +3,7 @@ using System.IO;
 
 namespace NUnit3Tests
 {
+    [Category("File and directory tests")]
     public class DirectoryFileTests
     {
         private readonly string fileReal = @"d:\bar.txt";
@@ -12,8 +13,17 @@ namespace NUnit3Tests
         private readonly string directoryEmpty = @"d:\junk\foo";
 
         [Test]
-        [Category("File test")]
-        [Category("Exists test")]
+        public void EmptyDirectoryTest()
+        {
+            //The EmptyDirectoryConstraint tests if a Directory is empty.
+
+            //Is.Empty actually creates an EmptyConstraint. Subsequently applying
+            //it to a DirectoryInfo causes an EmptyDirectoryConstraint to be created.
+
+            Assert.That(new DirectoryInfo(directoryEmpty), Is.Empty);
+        }
+
+        [Test]
         public void FileExistsTest()
         {
             Assert.That(new FileInfo(fileReal), Does.Exist);
@@ -21,8 +31,6 @@ namespace NUnit3Tests
         }
 
         [Test]
-        [Category("Directory test")]
-        [Category("Exists test")]
         public void DirectoryExistsTest()
         {
             Assert.That(new DirectoryInfo(directoryReal), Does.Exist);
@@ -30,17 +38,6 @@ namespace NUnit3Tests
         }
 
         [Test]
-        [Category("Directory test")]
-        [Category("Empty test")]
-        public void EmptyDirectoryTest()
-        {
-            Assert.That(new DirectoryInfo(directoryEmpty), Is.Empty);
-        }
-
-        [Test]
-        [Category("File test")]
-        [Category("Path test")]
-        [Category("Equality test")]
         public void SamePathTest()
         {
             Assert.That(directoryEmpty, Is.SamePath(@"d:\junk\foo").IgnoreCase);

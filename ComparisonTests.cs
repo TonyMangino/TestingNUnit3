@@ -7,7 +7,7 @@ namespace NUnit3Tests
     public class ComparisonTests
     {
         private readonly int result = 42;
-        private bool meaningOfLife = 42 > 0;
+        private readonly bool meaningOfLife = 42 > 0;
 
         [Test]
         public void GreaterThanTest()
@@ -74,12 +74,6 @@ namespace NUnit3Tests
             Assert.That(3, Is.LessThanOrEqualTo(3));
             Assert.That(3, Is.AtMost(3));
             //Assert.That(myOwnObject, Is.LessThanOrEqualTo(theExpected).Using(myComparer));
-        }
-
-        [Test]
-        public void IsTrueTest()
-        {
-            Assert.That(meaningOfLife, Is.True);
         }
 
         [Test]
